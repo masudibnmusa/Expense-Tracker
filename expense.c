@@ -21,6 +21,7 @@ Expense expenses[MAX_EXPENSES];
 int expense_count = 0;
 
 // Function prototypes
+void clear_screen();
 void display_menu();
 void add_expense();
 void view_all_expenses();
@@ -39,6 +40,7 @@ void clear_input_buffer();
 int main() {
     int choice;
     
+    clear_screen();
     printf("=== Welcome to Expense Tracker ===\n");
     load_from_file();
     
@@ -54,27 +56,35 @@ int main() {
         
         switch (choice) {
             case 1:
+                clear_screen();
                 add_expense();
                 break;
             case 2:
+                clear_screen();
                 view_all_expenses();
                 break;
             case 3:
+                clear_screen();
                 view_by_category();
                 break;
             case 4:
+                clear_screen();
                 view_by_date_range();
                 break;
             case 5:
+                clear_screen();
                 search_expenses();
                 break;
             case 6:
+                clear_screen();
                 modify_expense();
                 break;
             case 7:
+                clear_screen();
                 delete_expense();
                 break;
             case 8:
+                clear_screen();
                 show_statistics();
                 break;
             case 9:
@@ -566,4 +576,12 @@ void get_current_date(char *buffer) {
 void clear_input_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void clear_screen() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
 }
