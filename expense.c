@@ -22,6 +22,7 @@ int expense_count = 0;
 
 // Function prototypes
 void clear_screen();
+void pause_screen();
 void display_menu();
 void add_expense();
 void view_all_expenses();
@@ -58,34 +59,50 @@ int main() {
             case 1:
                 clear_screen();
                 add_expense();
+                pause_screen();
+                clear_screen();
                 break;
             case 2:
                 clear_screen();
                 view_all_expenses();
+                pause_screen();
+                clear_screen();
                 break;
             case 3:
                 clear_screen();
                 view_by_category();
+                pause_screen();
+                clear_screen();
                 break;
             case 4:
                 clear_screen();
                 view_by_date_range();
+                pause_screen();
+                clear_screen();
                 break;
             case 5:
                 clear_screen();
                 search_expenses();
+                pause_screen();
+                clear_screen();
                 break;
             case 6:
                 clear_screen();
                 modify_expense();
+                pause_screen();
+                clear_screen();
                 break;
             case 7:
                 clear_screen();
                 delete_expense();
+                pause_screen();
+                clear_screen();
                 break;
             case 8:
                 clear_screen();
                 show_statistics();
+                pause_screen();
+                clear_screen();
                 break;
             case 9:
                 save_to_file();
@@ -584,4 +601,10 @@ void clear_screen() {
     #else
         system("clear");
     #endif
+}
+
+void pause_screen() {
+    printf("\nPress Enter to continue...");
+    clear_input_buffer();
+    getchar();
 }
