@@ -4,10 +4,34 @@
 #include <time.h>
 #include <ctype.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+#endif
+#endif
+
 #define MAX_EXPENSES 1000
 #define MAX_CATEGORY_LENGTH 50
 #define MAX_DESCRIPTION_LENGTH 100
 #define FILENAME "expenses.dat"
+
+// Color codes
+#define COLOR_RESET "\033[0m"
+#define COLOR_RED "\033[31m"
+#define COLOR_GREEN "\033[32m"
+#define COLOR_YELLOW "\033[33m"
+#define COLOR_BLUE "\033[34m"
+#define COLOR_MAGENTA "\033[35m"
+#define COLOR_CYAN "\033[36m"
+#define COLOR_WHITE "\033[37m"
+#define COLOR_BRIGHT_RED "\033[91m"
+#define COLOR_BRIGHT_GREEN "\033[92m"
+#define COLOR_BRIGHT_YELLOW "\033[93m"
+#define COLOR_BRIGHT_BLUE "\033[94m"
+#define COLOR_BRIGHT_MAGENTA "\033[95m"
+#define COLOR_BRIGHT_CYAN "\033[96m"
+#define COLOR_BOLD "\033[1m"
 
 typedef struct {
     int id;
@@ -21,6 +45,7 @@ Expense expenses[MAX_EXPENSES];
 int expense_count = 0;
 
 // Function prototypes
+void enable_colors();
 void clear_screen();
 void pause_screen();
 void display_menu();
@@ -41,8 +66,9 @@ void clear_input_buffer();
 int main() {
     int choice;
     
+    enable_colors();
     clear_screen();
-    printf("=== Welcome to Expense Tracker ===\n");
+    printf("%s%s=== Welcome to Expense Tracker ===%s\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, COLOR_RESET);
     load_from_file();
     
     while (1) {
@@ -50,7 +76,7 @@ int main() {
         printf("Enter your choice (1-9): ");
         
         if (scanf("%d", &choice) != 1) {
-            printf("Invalid input! Please enter a number.\n");
+            printf("%sInvalid input! Please enter a number.%s\n", COLOR_RED, COLOR_RESET);
             clear_input_buffer();
             continue;
         }
@@ -106,10 +132,10 @@ int main() {
                 break;
             case 9:
                 save_to_file();
-                printf("Thank you for using Expense Tracker. Goodbye!\n");
+                printf("%sThank you for using Expense Tracker. Goodbye!%s\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
                 exit(0);
             default:
-                printf("Invalid choice! Please enter a number between 1-9.\n");
+                printf("%sInvalid choice! Please enter a number between 1-9.%s\n", COLOR_RED, COLOR_RESET);
         }
     }
     
@@ -117,21 +143,21 @@ int main() {
 }
 
 void display_menu() {
-    printf("\n=== Expense Tracker Menu ===\n");
-    printf("1. Add New Expense\n");
-    printf("2. View All Expenses\n");
-    printf("3. View Expenses by Category\n");
-    printf("4. View Expenses by Date Range\n");
-    printf("5. Search Expenses\n");
-    printf("6. Modify Expense\n");
-    printf("7. Delete Expense\n");
-    printf("8. Show Statistics\n");
-    printf("9. Exit\n");
+    printf("\n%s%s=== Expense Tracker Menu ===%s\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, COLOR_RESET);
+    printf("%s1.%s Add New Expense\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("%s2.%s View All Expenses\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("%s3.%s View Expenses by Category\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("%s4.%s View Expenses by Date Range\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("%s5.%s Search Expenses\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("%s6.%s Modify Expense\n", COLOR_BRIGHT_YELLOW, COLOR_RESET);
+    printf("%s7.%s Delete Expense\n", COLOR_BRIGHT_RED, COLOR_RESET);
+    printf("%s8.%s Show Statistics\n", COLOR_BRIGHT_BLUE, COLOR_RESET);
+    printf("%s9.%s Exit\n", COLOR_BRIGHT_MAGENTA, COLOR_RESET);
 }
 
 void add_expense() {
     if (expense_count >= MAX_EXPENSES) {
-        printf("Error: Expense tracker is full! Cannot add more expenses.\n");
+        printf("%sError: Expense tracker is full! Cannot add more expenses.%s\n", COLOR_RED, COLOR_RESET);
         return;
     }
     
@@ -151,7 +177,7 @@ void add_expense() {
             strcpy(new_expense.date, date_input);
             break;
         } else {
-            printf("Invalid date format! Please use YYYY-MM-DD format.\n");
+            printf("%sInvalid date format! Please use YYYY-MM-DD format.%s\n", COLOR_RED, COLOR_RESET);
         }
     }
     
@@ -161,7 +187,7 @@ void add_expense() {
         if (scanf("%f", &new_expense.amount) == 1 && new_expense.amount > 0) {
             break;
         } else {
-            printf("Invalid amount! Please enter a positive number.\n");
+            printf("%sInvalid amount! Please enter a positive number.%s\n", COLOR_RED, COLOR_RESET);
             clear_input_buffer();
         }
     }
@@ -179,36 +205,36 @@ void add_expense() {
     
     expenses[expense_count] = new_expense;
     expense_count++;
-    printf("\nExpense added successfully! (ID: %d)\n", new_expense.id);
+    printf("%s\nExpense added successfully! (ID: %d)%s\n", COLOR_BRIGHT_GREEN, new_expense.id, COLOR_RESET);
 }
 
 void view_all_expenses() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
-    printf("\n%-5s %-12s %-12s %-20s %-30s\n", 
-           "ID", "Date", "Amount", "Category", "Description");
-    printf("===============================================================================\n");
+    printf("\n%s%s%-5s %-12s %-12s %-20s %-30s%s\n", COLOR_BOLD, COLOR_CYAN,
+           "ID", "Date", "Amount", "Category", "Description", COLOR_RESET);
+    printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
     
     float total = 0;
     for (int i = 0; i < expense_count; i++) {
-        printf("%-5d %-12s $%-11.2f %-20s %-30s\n",
+        printf("%-5d %-12s %s$%-11.2f%s %-20s %-30s\n",
                expenses[i].id,
                expenses[i].date,
-               expenses[i].amount,
+               COLOR_GREEN, expenses[i].amount, COLOR_RESET,
                expenses[i].category,
                expenses[i].description);
         total += expenses[i].amount;
     }
-    printf("===============================================================================\n");
-    printf("%-51s $%-11.2f\n", "TOTAL EXPENSES:", total);
+    printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s%s%-51s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "TOTAL EXPENSES:", total, COLOR_RESET);
 }
 
 void view_by_category() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
@@ -218,19 +244,19 @@ void view_by_category() {
     fgets(category, MAX_CATEGORY_LENGTH, stdin);
     category[strcspn(category, "\n")] = 0;
     
-    printf("\nExpenses in category '%s':\n", category);
-    printf("%-5s %-12s %-12s %-30s\n", "ID", "Date", "Amount", "Description");
-    printf("==========================================================\n");
+    printf("\n%sExpenses in category '%s':%s\n", COLOR_BRIGHT_CYAN, category, COLOR_RESET);
+    printf("%s%s%-5s %-12s %-12s %-30s%s\n", COLOR_BOLD, COLOR_CYAN, "ID", "Date", "Amount", "Description", COLOR_RESET);
+    printf("%s==========================================================%s\n", COLOR_CYAN, COLOR_RESET);
     
     float category_total = 0;
     int found = 0;
     
     for (int i = 0; i < expense_count; i++) {
         if (strcasecmp(expenses[i].category, category) == 0) {
-            printf("%-5d %-12s $%-11.2f %-30s\n",
+            printf("%-5d %-12s %s$%-11.2f%s %-30s\n",
                    expenses[i].id,
                    expenses[i].date,
-                   expenses[i].amount,
+                   COLOR_GREEN, expenses[i].amount, COLOR_RESET,
                    expenses[i].description);
             category_total += expenses[i].amount;
             found = 1;
@@ -238,16 +264,16 @@ void view_by_category() {
     }
     
     if (found) {
-        printf("==========================================================\n");
-        printf("%-29s $%-11.2f\n", "CATEGORY TOTAL:", category_total);
+        printf("%s==========================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s%s%-29s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "CATEGORY TOTAL:", category_total, COLOR_RESET);
     } else {
-        printf("No expenses found in category '%s'\n", category);
+        printf("%sNo expenses found in category '%s'%s\n", COLOR_YELLOW, category, COLOR_RESET);
     }
 }
 
 void view_by_date_range() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
@@ -256,20 +282,20 @@ void view_by_date_range() {
     printf("Enter start date (YYYY-MM-DD): ");
     scanf("%s", start_date);
     if (!validate_date(start_date)) {
-        printf("Invalid start date format!\n");
+        printf("%sInvalid start date format!%s\n", COLOR_RED, COLOR_RESET);
         return;
     }
     
     printf("Enter end date (YYYY-MM-DD): ");
     scanf("%s", end_date);
     if (!validate_date(end_date)) {
-        printf("Invalid end date format!\n");
+        printf("%sInvalid end date format!%s\n", COLOR_RED, COLOR_RESET);
         return;
     }
     
-    printf("\nExpenses from %s to %s:\n", start_date, end_date);
-    printf("%-5s %-12s %-12s %-20s %-30s\n", "ID", "Date", "Amount", "Category", "Description");
-    printf("===============================================================================\n");
+    printf("\n%sExpenses from %s to %s:%s\n", COLOR_BRIGHT_CYAN, start_date, end_date, COLOR_RESET);
+    printf("%s%s%-5s %-12s %-12s %-20s %-30s%s\n", COLOR_BOLD, COLOR_CYAN, "ID", "Date", "Amount", "Category", "Description", COLOR_RESET);
+    printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
     
     float period_total = 0;
     int found = 0;
@@ -277,10 +303,10 @@ void view_by_date_range() {
     for (int i = 0; i < expense_count; i++) {
         if (strcmp(expenses[i].date, start_date) >= 0 && 
             strcmp(expenses[i].date, end_date) <= 0) {
-            printf("%-5d %-12s $%-11.2f %-20s %-30s\n",
+            printf("%-5d %-12s %s$%-11.2f%s %-20s %-30s\n",
                    expenses[i].id,
                    expenses[i].date,
-                   expenses[i].amount,
+                   COLOR_GREEN, expenses[i].amount, COLOR_RESET,
                    expenses[i].category,
                    expenses[i].description);
             period_total += expenses[i].amount;
@@ -289,16 +315,16 @@ void view_by_date_range() {
     }
     
     if (found) {
-        printf("===============================================================================\n");
-        printf("%-51s $%-11.2f\n", "PERIOD TOTAL:", period_total);
+        printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s%s%-51s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "PERIOD TOTAL:", period_total, COLOR_RESET);
     } else {
-        printf("No expenses found in the specified date range.\n");
+        printf("%sNo expenses found in the specified date range.%s\n", COLOR_YELLOW, COLOR_RESET);
     }
 }
 
 void search_expenses() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
@@ -308,9 +334,9 @@ void search_expenses() {
     fgets(search_term, MAX_DESCRIPTION_LENGTH, stdin);
     search_term[strcspn(search_term, "\n")] = 0;
     
-    printf("\nSearch results for '%s':\n", search_term);
-    printf("%-5s %-12s %-12s %-20s %-30s\n", "ID", "Date", "Amount", "Category", "Description");
-    printf("===============================================================================\n");
+    printf("\n%sSearch results for '%s':%s\n", COLOR_BRIGHT_CYAN, search_term, COLOR_RESET);
+    printf("%s%s%-5s %-12s %-12s %-20s %-30s%s\n", COLOR_BOLD, COLOR_CYAN, "ID", "Date", "Amount", "Category", "Description", COLOR_RESET);
+    printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
     
     float search_total = 0;
     int found = 0;
@@ -318,10 +344,10 @@ void search_expenses() {
     for (int i = 0; i < expense_count; i++) {
         if (strstr(expenses[i].description, search_term) != NULL ||
             strstr(expenses[i].category, search_term) != NULL) {
-            printf("%-5d %-12s $%-11.2f %-20s %-30s\n",
+            printf("%-5d %-12s %s$%-11.2f%s %-20s %-30s\n",
                    expenses[i].id,
                    expenses[i].date,
-                   expenses[i].amount,
+                   COLOR_GREEN, expenses[i].amount, COLOR_RESET,
                    expenses[i].category,
                    expenses[i].description);
             search_total += expenses[i].amount;
@@ -330,23 +356,23 @@ void search_expenses() {
     }
     
     if (found) {
-        printf("===============================================================================\n");
-        printf("%-51s $%-11.2f\n", "SEARCH RESULTS TOTAL:", search_total);
+        printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s%s%-51s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "SEARCH RESULTS TOTAL:", search_total, COLOR_RESET);
     } else {
-        printf("No expenses found matching your search.\n");
+        printf("%sNo expenses found matching your search.%s\n", COLOR_YELLOW, COLOR_RESET);
     }
 }
 
 void modify_expense() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
     int id;
     printf("Enter expense ID to modify: ");
     if (scanf("%d", &id) != 1) {
-        printf("Invalid ID!\n");
+        printf("%sInvalid ID!%s\n", COLOR_RED, COLOR_RESET);
         clear_input_buffer();
         return;
     }
@@ -360,13 +386,13 @@ void modify_expense() {
     }
     
     if (found == -1) {
-        printf("Expense with ID %d not found.\n", id);
+        printf("%sExpense with ID %d not found.%s\n", COLOR_RED, id, COLOR_RESET);
         return;
     }
     
-    printf("\nCurrent expense details:\n");
+    printf("\n%sCurrent expense details:%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET);
     printf("Date: %s\n", expenses[found].date);
-    printf("Amount: $%.2f\n", expenses[found].amount);
+    printf("Amount: %s$%.2f%s\n", COLOR_GREEN, expenses[found].amount, COLOR_RESET);
     printf("Category: %s\n", expenses[found].category);
     printf("Description: %s\n", expenses[found].description);
     
@@ -412,19 +438,19 @@ void modify_expense() {
         strcpy(expenses[found].description, new_description);
     }
     
-    printf("Expense modified successfully!\n");
+    printf("%sExpense modified successfully!%s\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
 }
 
 void delete_expense() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
     int id;
     printf("Enter expense ID to delete: ");
     if (scanf("%d", &id) != 1) {
-        printf("Invalid ID!\n");
+        printf("%sInvalid ID!%s\n", COLOR_RED, COLOR_RESET);
         clear_input_buffer();
         return;
     }
@@ -438,14 +464,14 @@ void delete_expense() {
     }
     
     if (found == -1) {
-        printf("Expense with ID %d not found.\n", id);
+        printf("%sExpense with ID %d not found.%s\n", COLOR_RED, id, COLOR_RESET);
         return;
     }
     
-    printf("\nExpense to delete:\n");
+    printf("\n%sExpense to delete:%s\n", COLOR_BRIGHT_RED, COLOR_RESET);
     printf("ID: %d\n", expenses[found].id);
     printf("Date: %s\n", expenses[found].date);
-    printf("Amount: $%.2f\n", expenses[found].amount);
+    printf("Amount: %s$%.2f%s\n", COLOR_GREEN, expenses[found].amount, COLOR_RESET);
     printf("Category: %s\n", expenses[found].category);
     printf("Description: %s\n", expenses[found].description);
     
@@ -460,33 +486,33 @@ void delete_expense() {
             expenses[i] = expenses[i + 1];
         }
         expense_count--;
-        printf("Expense deleted successfully!\n");
+        printf("%sExpense deleted successfully!%s\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
     } else {
-        printf("Deletion cancelled.\n");
+        printf("%sDeletion cancelled.%s\n", COLOR_YELLOW, COLOR_RESET);
     }
 }
 
 void show_statistics() {
     if (expense_count == 0) {
-        printf("No expenses recorded.\n");
+        printf("%sNo expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
-    printf("\n=== Expense Statistics ===\n");
+    printf("\n%s%s=== Expense Statistics ===%s\n", COLOR_BOLD, COLOR_BRIGHT_BLUE, COLOR_RESET);
     
     // Total expenses
     float total = 0;
     for (int i = 0; i < expense_count; i++) {
         total += expenses[i].amount;
     }
-    printf("Total Expenses: $%.2f\n", total);
+    printf("%sTotal Expenses:%s %s$%.2f%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_BRIGHT_GREEN, total, COLOR_RESET);
     
     // Average expense
-    printf("Average Expense: $%.2f\n", total / expense_count);
+    printf("%sAverage Expense:%s %s$%.2f%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, total / expense_count, COLOR_RESET);
     
     // Category breakdown
-    printf("\nCategory Breakdown:\n");
-    printf("-------------------\n");
+    printf("\n%s%sCategory Breakdown:%s\n", COLOR_BOLD, COLOR_BRIGHT_MAGENTA, COLOR_RESET);
+    printf("%s-------------------%s\n", COLOR_MAGENTA, COLOR_RESET);
     
     // Find unique categories and their totals
     char categories[MAX_EXPENSES][MAX_CATEGORY_LENGTH];
@@ -512,8 +538,9 @@ void show_statistics() {
     // Display category breakdown
     for (int i = 0; i < category_count; i++) {
         float percentage = (category_totals[i] / total) * 100;
-        printf("%-20s: $%-8.2f (%5.1f%%)\n", 
-               categories[i], category_totals[i], percentage);
+        printf("%-20s: %s$%-8.2f%s (%s%5.1f%%%s)\n", 
+               categories[i], COLOR_GREEN, category_totals[i], COLOR_RESET,
+               COLOR_YELLOW, percentage, COLOR_RESET);
     }
     
     // Find highest and lowest expense
@@ -528,16 +555,18 @@ void show_statistics() {
         }
     }
     
-    printf("\nHighest Expense: $%.2f (%s - %s)\n", 
-           highest.amount, highest.category, highest.description);
-    printf("Lowest Expense: $%.2f (%s - %s)\n", 
-           lowest.amount, lowest.category, lowest.description);
+    printf("\n%sHighest Expense:%s %s$%.2f%s (%s - %s)\n", 
+           COLOR_BRIGHT_RED, COLOR_RESET, COLOR_BRIGHT_GREEN, highest.amount, COLOR_RESET,
+           highest.category, highest.description);
+    printf("%sLowest Expense:%s %s$%.2f%s (%s - %s)\n", 
+           COLOR_BRIGHT_BLUE, COLOR_RESET, COLOR_GREEN, lowest.amount, COLOR_RESET,
+           lowest.category, lowest.description);
 }
 
 void save_to_file() {
     FILE *file = fopen(FILENAME, "wb");
     if (file == NULL) {
-        printf("Error: Could not save data to file!\n");
+        printf("%sError: Could not save data to file!%s\n", COLOR_RED, COLOR_RESET);
         return;
     }
     
@@ -550,13 +579,13 @@ void save_to_file() {
     }
     
     fclose(file);
-    printf("Data saved successfully to '%s'!\n", FILENAME);
+    printf("%sData saved successfully to '%s'!%s\n", COLOR_BRIGHT_GREEN, FILENAME, COLOR_RESET);
 }
 
 void load_from_file() {
     FILE *file = fopen(FILENAME, "rb");
     if (file == NULL) {
-        printf("No previous data found. Starting fresh.\n");
+        printf("%sNo previous data found. Starting fresh.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
@@ -569,7 +598,7 @@ void load_from_file() {
     }
     
     fclose(file);
-    printf("Data loaded successfully from '%s'! (%d expenses)\n", FILENAME, expense_count);
+    printf("%sData loaded successfully from '%s'! (%d expenses)%s\n", COLOR_BRIGHT_GREEN, FILENAME, expense_count, COLOR_RESET);
 }
 
 int validate_date(const char *date) {
@@ -604,7 +633,17 @@ void clear_screen() {
 }
 
 void pause_screen() {
-    printf("\nPress Enter to continue...");
+    printf("\n%sPress Enter to continue...%s", COLOR_CYAN, COLOR_RESET);
     clear_input_buffer();
     getchar();
+}
+
+void enable_colors() {
+    #ifdef _WIN32
+    // Enable ANSI color codes in Windows 10+
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD mode;
+    GetConsoleMode(hConsole, &mode);
+    SetConsoleMode(hConsole, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+    #endif
 }
