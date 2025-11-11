@@ -220,7 +220,7 @@ void view_all_expenses() {
     
     float total = 0;
     for (int i = 0; i < expense_count; i++) {
-        printf("%-5d %-12s %s$%-11.2f%s %-20s %-30s\n",
+        printf("%-5d %-12s %sTK %-10.2f%s %-20s %-30s\n",
                expenses[i].id,
                expenses[i].date,
                COLOR_GREEN, expenses[i].amount, COLOR_RESET,
@@ -229,7 +229,7 @@ void view_all_expenses() {
         total += expenses[i].amount;
     }
     printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
-    printf("%s%s%-51s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "TOTAL EXPENSES:", total, COLOR_RESET);
+    printf("%s%s%-51s TK %-10.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "TOTAL EXPENSES:", total, COLOR_RESET);
 }
 
 void view_by_category() {
@@ -253,7 +253,7 @@ void view_by_category() {
     
     for (int i = 0; i < expense_count; i++) {
         if (strcasecmp(expenses[i].category, category) == 0) {
-            printf("%-5d %-12s %s$%-11.2f%s %-30s\n",
+            printf("%-5d %-12s %sTK %-10.2f%s %-30s\n",
                    expenses[i].id,
                    expenses[i].date,
                    COLOR_GREEN, expenses[i].amount, COLOR_RESET,
@@ -265,7 +265,7 @@ void view_by_category() {
     
     if (found) {
         printf("%s==========================================================%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s%s%-29s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "CATEGORY TOTAL:", category_total, COLOR_RESET);
+        printf("%s%s%-29s TK %-10.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "CATEGORY TOTAL:", category_total, COLOR_RESET);
     } else {
         printf("%sNo expenses found in category '%s'%s\n", COLOR_YELLOW, category, COLOR_RESET);
     }
@@ -303,7 +303,7 @@ void view_by_date_range() {
     for (int i = 0; i < expense_count; i++) {
         if (strcmp(expenses[i].date, start_date) >= 0 && 
             strcmp(expenses[i].date, end_date) <= 0) {
-            printf("%-5d %-12s %s$%-11.2f%s %-20s %-30s\n",
+            printf("%-5d %-12s %sTK %-10.2f%s %-20s %-30s\n",
                    expenses[i].id,
                    expenses[i].date,
                    COLOR_GREEN, expenses[i].amount, COLOR_RESET,
@@ -316,7 +316,7 @@ void view_by_date_range() {
     
     if (found) {
         printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s%s%-51s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "PERIOD TOTAL:", period_total, COLOR_RESET);
+        printf("%s%s%-51s TK %-10.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "PERIOD TOTAL:", period_total, COLOR_RESET);
     } else {
         printf("%sNo expenses found in the specified date range.%s\n", COLOR_YELLOW, COLOR_RESET);
     }
@@ -344,7 +344,7 @@ void search_expenses() {
     for (int i = 0; i < expense_count; i++) {
         if (strstr(expenses[i].description, search_term) != NULL ||
             strstr(expenses[i].category, search_term) != NULL) {
-            printf("%-5d %-12s %s$%-11.2f%s %-20s %-30s\n",
+            printf("%-5d %-12s %sTK %-10.2f%s %-20s %-30s\n",
                    expenses[i].id,
                    expenses[i].date,
                    COLOR_GREEN, expenses[i].amount, COLOR_RESET,
@@ -357,7 +357,7 @@ void search_expenses() {
     
     if (found) {
         printf("%s===============================================================================%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s%s%-51s $%-11.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "SEARCH RESULTS TOTAL:", search_total, COLOR_RESET);
+        printf("%s%s%-51s TK %-10.2f%s\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, "SEARCH RESULTS TOTAL:", search_total, COLOR_RESET);
     } else {
         printf("%sNo expenses found matching your search.%s\n", COLOR_YELLOW, COLOR_RESET);
     }
@@ -392,7 +392,7 @@ void modify_expense() {
     
     printf("\n%sCurrent expense details:%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET);
     printf("Date: %s\n", expenses[found].date);
-    printf("Amount: %s$%.2f%s\n", COLOR_GREEN, expenses[found].amount, COLOR_RESET);
+    printf("Amount: %sTK %.2f%s\n", COLOR_GREEN, expenses[found].amount, COLOR_RESET);
     printf("Category: %s\n", expenses[found].category);
     printf("Description: %s\n", expenses[found].description);
     
@@ -471,7 +471,7 @@ void delete_expense() {
     printf("\n%sExpense to delete:%s\n", COLOR_BRIGHT_RED, COLOR_RESET);
     printf("ID: %d\n", expenses[found].id);
     printf("Date: %s\n", expenses[found].date);
-    printf("Amount: %s$%.2f%s\n", COLOR_GREEN, expenses[found].amount, COLOR_RESET);
+    printf("Amount: %sTK %.2f%s\n", COLOR_GREEN, expenses[found].amount, COLOR_RESET);
     printf("Category: %s\n", expenses[found].category);
     printf("Description: %s\n", expenses[found].description);
     
@@ -505,10 +505,10 @@ void show_statistics() {
     for (int i = 0; i < expense_count; i++) {
         total += expenses[i].amount;
     }
-    printf("%sTotal Expenses:%s %s$%.2f%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_BRIGHT_GREEN, total, COLOR_RESET);
+    printf("%sTotal Expenses:%s %sTK %.2f%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_BRIGHT_GREEN, total, COLOR_RESET);
     
     // Average expense
-    printf("%sAverage Expense:%s %s$%.2f%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, total / expense_count, COLOR_RESET);
+    printf("%sAverage Expense:%s %sTK %.2f%s\n", COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, total / expense_count, COLOR_RESET);
     
     // Category breakdown
     printf("\n%s%sCategory Breakdown:%s\n", COLOR_BOLD, COLOR_BRIGHT_MAGENTA, COLOR_RESET);
@@ -538,7 +538,7 @@ void show_statistics() {
     // Display category breakdown
     for (int i = 0; i < category_count; i++) {
         float percentage = (category_totals[i] / total) * 100;
-        printf("%-20s: %s$%-8.2f%s (%s%5.1f%%%s)\n", 
+        printf("%-20s: %sTK %-7.2f%s (%s%5.1f%%%s)\n", 
                categories[i], COLOR_GREEN, category_totals[i], COLOR_RESET,
                COLOR_YELLOW, percentage, COLOR_RESET);
     }
@@ -555,10 +555,10 @@ void show_statistics() {
         }
     }
     
-    printf("\n%sHighest Expense:%s %s$%.2f%s (%s - %s)\n", 
+    printf("\n%sHighest Expense:%s %sTK %.2f%s (%s - %s)\n", 
            COLOR_BRIGHT_RED, COLOR_RESET, COLOR_BRIGHT_GREEN, highest.amount, COLOR_RESET,
            highest.category, highest.description);
-    printf("%sLowest Expense:%s %s$%.2f%s (%s - %s)\n", 
+    printf("%sLowest Expense:%s %sTK %.2f%s (%s - %s)\n", 
            COLOR_BRIGHT_BLUE, COLOR_RESET, COLOR_GREEN, lowest.amount, COLOR_RESET,
            lowest.category, lowest.description);
 }
