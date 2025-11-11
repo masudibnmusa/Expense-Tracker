@@ -71,11 +71,11 @@ int main() {
     
     // Welcome banner
     printf("%s\n", COLOR_BRIGHT_CYAN);
-    printf("╔═══════════════════════════════════════════════════════════════╗\n");
-    printf("║                                                               ║\n");
-    printf("║          %s%s💰 EXPENSE TRACKER - FINANCIAL MANAGER 💰%s%s          ║\n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, COLOR_RESET, COLOR_BRIGHT_CYAN);
-    printf("║                                                               ║\n");
-    printf("╚═══════════════════════════════════════════════════════════════╝%s\n\n", COLOR_RESET);
+    printf("===============================================================\n");
+    printf("                                                               \n");
+    printf("          %s%sEXPENSE TRACKER - FINANCIAL MANAGER%s%s          \n", COLOR_BOLD, COLOR_BRIGHT_YELLOW, COLOR_RESET, COLOR_BRIGHT_CYAN);
+    printf("                                                               \n");
+    printf("===============================================================%s\n\n", COLOR_RESET);
     
     load_from_file();
     
@@ -142,11 +142,11 @@ int main() {
                 clear_screen();
                 save_to_file();
                 printf("\n%s", COLOR_BRIGHT_CYAN);
-                printf("╔═══════════════════════════════════════════════════════════════╗\n");
-                printf("║                                                               ║\n");
-                printf("║     %s%sThank you for using Expense Tracker! Goodbye! 👋%s%s      ║\n", COLOR_BOLD, COLOR_BRIGHT_GREEN, COLOR_RESET, COLOR_BRIGHT_CYAN);
-                printf("║                                                               ║\n");
-                printf("╚═══════════════════════════════════════════════════════════════╝%s\n\n", COLOR_RESET);
+                printf("===============================================================\n");
+                printf("                                                               \n");
+                printf("     %s%sThank you for using Expense Tracker! Goodbye!%s%s      \n", COLOR_BOLD, COLOR_BRIGHT_GREEN, COLOR_RESET, COLOR_BRIGHT_CYAN);
+                printf("                                                               \n");
+                printf("===============================================================%s\n\n", COLOR_RESET);
                 exit(0);
             default:
                 printf("%sInvalid choice! Please enter a number between 1-9.%s\n", COLOR_RED, COLOR_RESET);
@@ -158,21 +158,21 @@ int main() {
 
 void display_menu() {
     printf("\n%s", COLOR_CYAN);
-    printf("┌───────────────────────────────────────────────────────────────┐\n");
-    printf("│              %s%s📋 EXPENSE TRACKER - MAIN MENU 📋%s%s              │\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_CYAN);
-    printf("├───────────────────────────────────────────────────────────────┤\n");
-    printf("│                                                               │\n");
-    printf("│  %s1.%s ➕  Add New Expense                                       │\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
-    printf("│  %s2.%s 📄  View All Expenses                                     │\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
-    printf("│  %s3.%s 🏷️   View Expenses by Category                           │\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
-    printf("│  %s4.%s 📅  View Expenses by Date Range                           │\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
-    printf("│  %s5.%s 🔍  Search Expenses                                       │\n", COLOR_BRIGHT_GREEN, COLOR_RESET);
-    printf("│  %s6.%s ✏️   Modify Expense                                        │\n", COLOR_BRIGHT_YELLOW, COLOR_RESET);
-    printf("│  %s7.%s 🗑️   Delete Expense                                        │\n", COLOR_BRIGHT_RED, COLOR_RESET);
-    printf("│  %s8.%s 📊  Show Statistics                                       │\n", COLOR_BRIGHT_BLUE, COLOR_RESET);
-    printf("│  %s9.%s 🚪  Exit                                                  │\n", COLOR_BRIGHT_MAGENTA, COLOR_RESET);
-    printf("│                                                               │\n");
-    printf("%s└───────────────────────────────────────────────────────────────┘%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("===============================================================\n");
+    printf("              %s%sEXPENSE TRACKER - MAIN MENU%s%s              \n", COLOR_BOLD, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_CYAN);
+    printf("===============================================================%s\n", COLOR_RESET);
+    printf("                                                               \n");
+    printf("  %s1.%s  Add New Expense                                       \n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("  %s2.%s  View All Expenses                                     \n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("  %s3.%s  View Expenses by Category                            \n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("  %s4.%s  View Expenses by Date Range                          \n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("  %s5.%s  Search Expenses                                       \n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("  %s6.%s  Modify Expense                                        \n", COLOR_BRIGHT_YELLOW, COLOR_RESET);
+    printf("  %s7.%s  Delete Expense                                        \n", COLOR_BRIGHT_RED, COLOR_RESET);
+    printf("  %s8.%s  Show Statistics                                       \n", COLOR_BRIGHT_BLUE, COLOR_RESET);
+    printf("  %s9.%s  Exit                                                  \n", COLOR_BRIGHT_MAGENTA, COLOR_RESET);
+    printf("                                                               \n");
+    printf("%s===============================================================%s\n", COLOR_CYAN, COLOR_RESET);
 }
 
 void add_expense() {
@@ -227,25 +227,25 @@ void add_expense() {
     expense_count++;
     
     printf("\n%s", COLOR_GREEN);
-    printf("┌───────────────────────────────────────────────────────────┐\n");
-    printf("│  %s✅ SUCCESS! Expense added successfully!%s                 │\n", COLOR_BRIGHT_GREEN, COLOR_GREEN);
-    printf("│  %sExpense ID: %d%s                                           │\n", COLOR_BRIGHT_YELLOW, new_expense.id, COLOR_GREEN);
-    printf("└───────────────────────────────────────────────────────────┘%s\n", COLOR_RESET);
+    printf("===========================================================\n");
+    printf("  %sSUCCESS! Expense added successfully!%s                 \n", COLOR_BRIGHT_GREEN, COLOR_RESET);
+    printf("  %sExpense ID: %d%s                                       \n", COLOR_BRIGHT_YELLOW, new_expense.id, COLOR_RESET);
+    printf("===========================================================%s\n", COLOR_RESET);
 }
 
 void view_all_expenses() {
     if (expense_count == 0) {
-        printf("\n%s⚠️  No expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
+        printf("\n%sWARNING: No expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
     printf("\n%s", COLOR_CYAN);
-    printf("╔═══════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                           %s%s📋 ALL EXPENSES%s%s                                       ║\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_CYAN);
-    printf("╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_RESET);
+    printf("===================================================================================\n");
+    printf("                           %s%sALL EXPENSES%s%s                                       \n", COLOR_BOLD, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_CYAN);
+    printf("===================================================================================%s\n", COLOR_RESET);
     printf("%s%s%-5s %-12s %-15s %-20s %-30s%s\n", COLOR_BOLD, COLOR_CYAN,
            "ID", "Date", "Amount", "Category", "Description", COLOR_RESET);
-    printf("%s───────────────────────────────────────────────────────────────────────────────────%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s-----------------------------------------------------------------------------------%s\n", COLOR_CYAN, COLOR_RESET);
     
     float total = 0;
     for (int i = 0; i < expense_count; i++) {
@@ -257,11 +257,11 @@ void view_all_expenses() {
                expenses[i].description);
         total += expenses[i].amount;
     }
-    printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-    printf("%s║  %s%s💰 TOTAL EXPENSES:%s%s %sTK %.2f%s                                                  ║%s\n", 
+    printf("%s===================================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s  %s%sTOTAL EXPENSES:%s%s %sTK %.2f%s                                                  %s\n", 
            COLOR_CYAN, COLOR_BOLD, COLOR_BRIGHT_YELLOW, COLOR_RESET, COLOR_CYAN,
            COLOR_BRIGHT_GREEN, total, COLOR_RESET, COLOR_CYAN);
-    printf("╚═══════════════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+    printf("===================================================================================%s\n", COLOR_RESET);
 }
 
 void view_by_category() {
@@ -277,11 +277,11 @@ void view_by_category() {
     category[strcspn(category, "\n")] = 0;
     
     printf("\n%s", COLOR_CYAN);
-    printf("╔═══════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║           %s%s🏷️  Expenses in Category: '%s'%s%s                 ║\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, category, COLOR_RESET, COLOR_CYAN);
-    printf("╠═══════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_RESET);
+    printf("===========================================================================\n");
+    printf("           %s%sExpenses in Category: '%s'%s%s                 \n", COLOR_BOLD, COLOR_BRIGHT_CYAN, category, COLOR_RESET, COLOR_CYAN);
+    printf("===========================================================================%s\n", COLOR_RESET);
     printf("%s%s%-5s %-12s %-15s %-30s%s\n", COLOR_BOLD, COLOR_CYAN, "ID", "Date", "Amount", "Description", COLOR_RESET);
-    printf("%s───────────────────────────────────────────────────────────────────────────%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s---------------------------------------------------------------------------%s\n", COLOR_CYAN, COLOR_RESET);
     
     float category_total = 0;
     int found = 0;
@@ -299,15 +299,15 @@ void view_by_category() {
     }
     
     if (found) {
-        printf("%s╠═══════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s║  %s%s💰 CATEGORY TOTAL:%s%s %sTK %.2f%s                                        ║%s\n", 
+        printf("%s===========================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s  %s%sCATEGORY TOTAL:%s%s %sTK %.2f%s                                        %s\n", 
                COLOR_CYAN, COLOR_BOLD, COLOR_BRIGHT_YELLOW, COLOR_RESET, COLOR_CYAN,
                COLOR_BRIGHT_GREEN, category_total, COLOR_RESET, COLOR_CYAN);
-        printf("╚═══════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+        printf("===========================================================================%s\n", COLOR_RESET);
     } else {
-        printf("%s╠═══════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s║  %s⚠️  No expenses found in category '%s'%s                        ║%s\n", COLOR_CYAN, COLOR_YELLOW, category, COLOR_RESET, COLOR_CYAN);
-        printf("╚═══════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+        printf("%s===========================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s  %sWARNING: No expenses found in category '%s'%s                        %s\n", COLOR_CYAN, COLOR_YELLOW, category, COLOR_RESET, COLOR_CYAN);
+        printf("===========================================================================%s\n", COLOR_RESET);
     }
 }
 
@@ -334,11 +334,11 @@ void view_by_date_range() {
     }
     
     printf("\n%s", COLOR_CYAN);
-    printf("╔═══════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║       %s%s📅 Expenses from %s to %s%s%s                    ║\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, start_date, end_date, COLOR_RESET, COLOR_CYAN);
-    printf("╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_RESET);
+    printf("===================================================================================\n");
+    printf("       %s%sExpenses from %s to %s%s%s                    \n", COLOR_BOLD, COLOR_BRIGHT_CYAN, start_date, end_date, COLOR_RESET, COLOR_CYAN);
+    printf("===================================================================================%s\n", COLOR_RESET);
     printf("%s%s%-5s %-12s %-15s %-20s %-30s%s\n", COLOR_BOLD, COLOR_CYAN, "ID", "Date", "Amount", "Category", "Description", COLOR_RESET);
-    printf("%s───────────────────────────────────────────────────────────────────────────────────%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s-----------------------------------------------------------------------------------%s\n", COLOR_CYAN, COLOR_RESET);
     
     float period_total = 0;
     int found = 0;
@@ -358,15 +358,15 @@ void view_by_date_range() {
     }
     
     if (found) {
-        printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s║  %s%s💰 PERIOD TOTAL:%s%s %sTK %.2f%s                                                    ║%s\n", 
+        printf("%s===================================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s  %s%sPERIOD TOTAL:%s%s %sTK %.2f%s                                                    %s\n", 
                COLOR_CYAN, COLOR_BOLD, COLOR_BRIGHT_YELLOW, COLOR_RESET, COLOR_CYAN,
                COLOR_BRIGHT_GREEN, period_total, COLOR_RESET, COLOR_CYAN);
-        printf("╚═══════════════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+        printf("===================================================================================%s\n", COLOR_RESET);
     } else {
-        printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s║  %s⚠️  No expenses found in the specified date range.%s                              ║%s\n", COLOR_CYAN, COLOR_YELLOW, COLOR_RESET, COLOR_CYAN);
-        printf("╚═══════════════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+        printf("%s===================================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s  %sWARNING: No expenses found in the specified date range.%s                              %s\n", COLOR_CYAN, COLOR_YELLOW, COLOR_RESET, COLOR_CYAN);
+        printf("===================================================================================%s\n", COLOR_RESET);
     }
 }
 
@@ -383,11 +383,11 @@ void search_expenses() {
     search_term[strcspn(search_term, "\n")] = 0;
     
     printf("\n%s", COLOR_CYAN);
-    printf("╔═══════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║               %s%s🔍 Search Results for: '%s'%s%s                         ║\n", COLOR_BOLD, COLOR_BRIGHT_CYAN, search_term, COLOR_RESET, COLOR_CYAN);
-    printf("╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_RESET);
+    printf("===================================================================================\n");
+    printf("               %s%sSearch Results for: '%s'%s%s                         \n", COLOR_BOLD, COLOR_BRIGHT_CYAN, search_term, COLOR_RESET, COLOR_CYAN);
+    printf("===================================================================================%s\n", COLOR_RESET);
     printf("%s%s%-5s %-12s %-15s %-20s %-30s%s\n", COLOR_BOLD, COLOR_CYAN, "ID", "Date", "Amount", "Category", "Description", COLOR_RESET);
-    printf("%s───────────────────────────────────────────────────────────────────────────────────%s\n", COLOR_CYAN, COLOR_RESET);
+    printf("%s-----------------------------------------------------------------------------------%s\n", COLOR_CYAN, COLOR_RESET);
     
     float search_total = 0;
     int found = 0;
@@ -407,15 +407,15 @@ void search_expenses() {
     }
     
     if (found) {
-        printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s║  %s%s💰 SEARCH TOTAL:%s%s %sTK %.2f%s                                                     ║%s\n", 
+        printf("%s===================================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s  %s%sSEARCH TOTAL:%s%s %sTK %.2f%s                                                     %s\n", 
                COLOR_CYAN, COLOR_BOLD, COLOR_BRIGHT_YELLOW, COLOR_RESET, COLOR_CYAN,
                COLOR_BRIGHT_GREEN, search_total, COLOR_RESET, COLOR_CYAN);
-        printf("╚═══════════════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+        printf("===================================================================================%s\n", COLOR_RESET);
     } else {
-        printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_CYAN, COLOR_RESET);
-        printf("%s║  %s⚠️  No expenses found matching your search.%s                                     ║%s\n", COLOR_CYAN, COLOR_YELLOW, COLOR_RESET, COLOR_CYAN);
-        printf("╚═══════════════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_RESET);
+        printf("%s===================================================================================%s\n", COLOR_CYAN, COLOR_RESET);
+        printf("%s  %sWARNING: No expenses found matching your search.%s                                     %s\n", COLOR_CYAN, COLOR_YELLOW, COLOR_RESET, COLOR_CYAN);
+        printf("===================================================================================%s\n", COLOR_RESET);
     }
 }
 
@@ -550,32 +550,32 @@ void delete_expense() {
 
 void show_statistics() {
     if (expense_count == 0) {
-        printf("\n%s⚠️  No expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
+        printf("\n%sWARNING: No expenses recorded.%s\n", COLOR_YELLOW, COLOR_RESET);
         return;
     }
     
     printf("\n%s", COLOR_BLUE);
-    printf("╔═══════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                      %s%s📊 EXPENSE STATISTICS DASHBOARD 📊%s%s                        ║\n", COLOR_BOLD, COLOR_BRIGHT_BLUE, COLOR_RESET, COLOR_BLUE);
-    printf("╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_RESET);
+    printf("===================================================================================\n");
+    printf("                      %s%sEXPENSE STATISTICS DASHBOARD%s%s                        \n", COLOR_BOLD, COLOR_BRIGHT_BLUE, COLOR_RESET, COLOR_BLUE);
+    printf("===================================================================================%s\n", COLOR_RESET);
     
     // Total expenses
     float total = 0;
     for (int i = 0; i < expense_count; i++) {
         total += expenses[i].amount;
     }
-    printf("%s║                                                                               ║%s\n", COLOR_BLUE, COLOR_RESET);
-    printf("%s║  %s💰 Total Expenses:%s    %sTK %.2f%s                                              ║%s\n", 
-           COLOR_BLUE, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_BRIGHT_GREEN, total, COLOR_RESET, COLOR_BLUE);
-    printf("%s║  %s📊 Average Expense:%s   %sTK %.2f%s                                              ║%s\n", 
-           COLOR_BLUE, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, total / expense_count, COLOR_RESET, COLOR_BLUE);
-    printf("%s║  %s📝 Total Entries:%s     %d%s                                                     ║%s\n", 
-           COLOR_BLUE, COLOR_BRIGHT_CYAN, COLOR_RESET, expense_count, COLOR_RESET, COLOR_BLUE);
-    printf("%s║                                                                               ║%s\n", COLOR_BLUE, COLOR_RESET);
-    printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_BLUE, COLOR_RESET);
-    printf("%s║                      %s%s🏷️  CATEGORY BREAKDOWN 🏷️%s%s                               ║%s\n", 
-           COLOR_BLUE, COLOR_BOLD, COLOR_BRIGHT_MAGENTA, COLOR_RESET, COLOR_BLUE, COLOR_RESET);
-    printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_BLUE, COLOR_RESET);
+    printf("                                                                               \n");
+    printf("%s  %sTotal Expenses:%s    %sTK %.2f%s                                              %s\n", 
+           COLOR_CYAN, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_BRIGHT_GREEN, total, COLOR_RESET, COLOR_CYAN);
+    printf("%s  %sAverage Expense:%s   %sTK %.2f%s                                              %s\n", 
+           COLOR_CYAN, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, total / expense_count, COLOR_RESET, COLOR_CYAN);
+    printf("%s  %sTotal Entries:%s     %d%s                                                     %s\n", 
+           COLOR_CYAN, COLOR_BRIGHT_CYAN, COLOR_RESET, expense_count, COLOR_RESET, COLOR_CYAN);
+    printf("                                                                               \n");
+    printf("%s===================================================================================%s\n", COLOR_BLUE, COLOR_RESET);
+    printf("%s                      %s%sCATEGORY BREAKDOWN%s%s                               %s\n", 
+           COLOR_CYAN, COLOR_BOLD, COLOR_BRIGHT_MAGENTA, COLOR_RESET, COLOR_CYAN, COLOR_RESET);
+    printf("%s===================================================================================%s\n", COLOR_BLUE, COLOR_RESET);
     
     // Find unique categories and their totals
     char categories[MAX_EXPENSES][MAX_CATEGORY_LENGTH];
@@ -601,9 +601,9 @@ void show_statistics() {
     // Display category breakdown
     for (int i = 0; i < category_count; i++) {
         float percentage = (category_totals[i] / total) * 100;
-        printf("%s║  %-20s: %sTK %-10.2f%s (%s%5.1f%%%s)                           ║%s\n", 
-               COLOR_BLUE, categories[i], COLOR_BRIGHT_GREEN, category_totals[i], COLOR_RESET,
-               COLOR_BRIGHT_YELLOW, percentage, COLOR_RESET, COLOR_BLUE);
+        printf("%s  %-20s: %sTK %-10.2f%s (%s%5.1f%%%s)                           %s\n", 
+               COLOR_CYAN, categories[i], COLOR_BRIGHT_GREEN, category_totals[i], COLOR_RESET,
+               COLOR_BRIGHT_YELLOW, percentage, COLOR_RESET, COLOR_CYAN);
     }
     
     // Find highest and lowest expense
@@ -618,18 +618,18 @@ void show_statistics() {
         }
     }
     
-    printf("%s║                                                                               ║%s\n", COLOR_BLUE, COLOR_RESET);
-    printf("%s╠═══════════════════════════════════════════════════════════════════════════════════╣%s\n", COLOR_BLUE, COLOR_RESET);
-    printf("%s║  %s⬆️  Highest Expense:%s %sTK %.2f%s                                              ║%s\n", 
-           COLOR_BLUE, COLOR_BRIGHT_RED, COLOR_RESET, COLOR_BRIGHT_GREEN, highest.amount, COLOR_RESET, COLOR_BLUE);
-    printf("%s║     Category: %s, Description: %s                  ║%s\n", 
-           COLOR_BLUE, highest.category, highest.description, COLOR_RESET);
-    printf("%s║                                                                               ║%s\n", COLOR_BLUE, COLOR_RESET);
-    printf("%s║  %s⬇️  Lowest Expense:%s  %sTK %.2f%s                                              ║%s\n", 
-           COLOR_BLUE, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, lowest.amount, COLOR_RESET, COLOR_BLUE);
-    printf("%s║     Category: %s, Description: %s                  ║%s\n", 
-           COLOR_BLUE, lowest.category, lowest.description, COLOR_RESET);
-    printf("%s╚═══════════════════════════════════════════════════════════════════════════════════╝%s\n", COLOR_BLUE, COLOR_RESET);
+    printf("                                                                               \n");
+    printf("%s===================================================================================%s\n", COLOR_BLUE, COLOR_RESET);
+    printf("%s  %sHighest Expense:%s %sTK %.2f%s                                              %s\n", 
+           COLOR_CYAN, COLOR_BRIGHT_RED, COLOR_RESET, COLOR_BRIGHT_GREEN, highest.amount, COLOR_RESET, COLOR_CYAN);
+    printf("%s     Category: %s, Description: %s                  %s\n", 
+           COLOR_CYAN, highest.category, highest.description, COLOR_RESET);
+    printf("                                                                               \n");
+    printf("%s  %sLowest Expense:%s  %sTK %.2f%s                                              %s\n", 
+           COLOR_CYAN, COLOR_BRIGHT_CYAN, COLOR_RESET, COLOR_GREEN, lowest.amount, COLOR_RESET, COLOR_CYAN);
+    printf("%s     Category: %s, Description: %s                  %s\n", 
+           COLOR_CYAN, lowest.category, lowest.description, COLOR_RESET);
+    printf("%s===================================================================================%s\n", COLOR_BLUE, COLOR_RESET);
 }
 
 void save_to_file() {
