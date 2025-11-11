@@ -17,9 +17,8 @@ A simple yet powerful command-line expense tracking application written in C. Tr
   - Highest and lowest expenses
 - 💾 **Persistent Storage** - All data is automatically saved to a file
 - 🎨 **Enhanced UI with Colors** - Beautiful, modern interface with:
-  - Unicode box-drawing characters for elegant borders
+  - Clean ASCII borders and separators for wide compatibility
   - Color-coded text (Green for amounts, Red for errors, Yellow for warnings)
-  - Emoji icons for visual clarity (💰 for money, 📊 for statistics, etc.)
   - Professional table layouts with proper alignment
   - Attractive welcome and goodbye screens
   - Color-coded menu options for intuitive navigation
