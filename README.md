@@ -83,17 +83,17 @@ Enter description: Weekly shopping at supermarket
 #### Viewing Statistics
 ```
 === Expense Statistics ===
-Total Expenses: $523.45
-Average Expense: $52.35
+Total Expenses: TK 523.45
+Average Expense: TK 52.35
 
 Category Breakdown:
 -------------------
-Groceries        : $234.50  ( 44.8%)
-Transportation   : $120.00  ( 22.9%)
-Entertainment    : $168.95  ( 32.3%)
+Groceries        : TK 234.50  ( 44.8%)
+Transportation   : TK 120.00  ( 22.9%)
+Entertainment    : TK 168.95  ( 32.3%)
 
-Highest Expense: $89.99 (Entertainment - Concert tickets)
-Lowest Expense: $12.50 (Transportation - Bus fare)
+Highest Expense: TK 89.99 (Entertainment - Concert tickets)
+Lowest Expense: TK 12.50 (Transportation - Bus fare)
 ```
 
 ## Data Storage
