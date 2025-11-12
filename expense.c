@@ -76,6 +76,8 @@ int main() {
     printf("==============================================================================\n\n");
     
     load_from_file();
+    pause_screen();
+    clear_screen();
     
     while (1) {
         display_menu();
